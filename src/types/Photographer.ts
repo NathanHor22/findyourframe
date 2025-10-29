@@ -1,3 +1,11 @@
+export interface Review {
+  id: number;
+  reviewerName: string;
+  rating: number; // 1-5 stars
+  comment: string;
+  date: string;
+}
+
 export interface Photographer {
   id: number;
   name: string;
@@ -13,8 +21,10 @@ export interface Photographer {
   portfolio: string[]; // Array of up to 5 portfolio images
   experience: string;
   priceRange: string;
+  rating: number; // Average rating 1-5
+  totalReviews: number;
+  reviews: Review[]; // Array of user reviews
   contactInfo?: {
-    email?: string;
     instagram?: string;
     website?: string;
   };

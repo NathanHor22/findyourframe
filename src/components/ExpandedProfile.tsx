@@ -1,5 +1,7 @@
-import React from 'react';
-import { Photographer } from '../types/Photographer';
+import React, { useState } from 'react';
+import { Photographer, Review } from '../types/Photographer';
+import StarRating from './StarRating';
+import ReviewForm from './ReviewForm';
 import './ExpandedProfile.css';
 
 interface ExpandedProfileProps {
@@ -13,6 +15,8 @@ const ExpandedProfile: React.FC<ExpandedProfileProps> = ({
   isOpen,
   onClose
 }) => {
+  const [reviews, setReviews] = useState<Review[]>(photographer.reviews);
+
   const getCategoryColor = (category: string) => {
     const colors = {
       sports: '#ff6b6b',
@@ -25,73 +29,121 @@ const ExpandedProfile: React.FC<ExpandedProfileProps> = ({
     return colors[category as keyof typeof colors] || '#95a5a6';
   };
 
-  const formatCategory = (category: string) => {
-    return category.charAt(0).toUpperCase() + category.slice(1);
+  const handleSubmitReview = (newReview: { rating: number; comment: string; reviewerName: string }) => {
+    const review: Review = {
+      id: reviews.length + 1,
+      reviewerName: newReview.reviewerName,
+      rating: newReview.rating,
+      comment: newReview.comment,
+      date: new Date().toISOString().split('T')[0]
+    };
+    
+    setReviews([review, ...reviews]);
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="expanded-profile-overlay">
+    <div className="expanded-profile-overlay" onClick={handleBackdropClick}>
       <div className="expanded-profile">
-        {/* Header with main image */}
+        <button className="close-button" onClick={onClose}>
+          ✕
+        </button>
+        
+        {/* Header Section */}
         <div className="profile-header">
-          <button className="close-button" onClick={onClose}>
-            <span>×</span>
-          </button>
-          <div className="header-image">
+          <div className="profile-main-image">
             <img src={photographer.image} alt={photographer.name} />
-            <div className="header-overlay">
-              <div className="header-content">
-                <h2 className="profile-name">{photographer.name}</h2>
-                <div 
-                  className="profile-category" 
-                  style={{ backgroundColor: getCategoryColor(photographer.category) }}
+            <div 
+              className="category-badge" 
+              style={{ backgroundColor: getCategoryColor(photographer.category) }}
+            >
+              {photographer.category.toUpperCase()}
+            </div>
+          </div>
+          
+          <div className="profile-info">
+            <h1 className="profile-name">{photographer.name}</h1>
+            <p className="profile-bio">{photographer.bio}</p>
+            <div className="profile-location">
+              <span className="location-icon">📍</span>
+              {photographer.location}
+            </div>
+            
+            <div className="rating-section">
+              <StarRating rating={photographer.rating} showNumber={true} size="medium" />
+              <span className="review-count">({photographer.totalReviews} reviews)</span>
+            </div>
+            
+            {/* Contact Links */}
+            <div className="contact-links">
+              {photographer.contactInfo?.instagram && (
+                <a 
+                  href={`https://instagram.com/${photographer.contactInfo.instagram.replace('@', '')}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="contact-link instagram"
                 >
-                  {formatCategory(photographer.category)} Photographer
-                </div>
-                <div className="location">
-                  <span className="location-icon">📍</span>
-                  {photographer.location}
-                </div>
-                <div className="experience-price">
-                  <span className="experience">{photographer.experience} experience</span>
-                  <span className="price">{photographer.priceRange}</span>
-                </div>
-              </div>
+                  📷 Instagram
+                </a>
+              )}
+              {photographer.contactInfo?.website && (
+                <a 
+                  href={`https://${photographer.contactInfo.website}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="contact-link website"
+                >
+                  🌐 Website
+                </a>
+              )}
             </div>
           </div>
         </div>
 
-        {/* Profile content */}
         <div className="profile-content">
-          {/* Bio */}
+          {/* Portfolio Section - 5 additional photos */}
           <section className="profile-section">
-            <h3>About</h3>
-            <p className="bio">{photographer.bio}</p>
+            <h3>Portfolio</h3>
+            <div className="portfolio-grid">
+              {photographer.portfolio.map((image, index) => (
+                <div key={index} className="portfolio-item">
+                  <img src={image} alt={`${photographer.name} portfolio ${index + 1}`} />
+                </div>
+              ))}
+            </div>
           </section>
 
-          {/* Gear */}
+          {/* Camera Gear Section */}
           <section className="profile-section">
-            <h3>Equipment</h3>
-            <div className="gear-info">
-              <div className="gear-item">
-                <strong>Camera:</strong> {photographer.gear.camera}
+            <h3>Camera Gear & Equipment</h3>
+            <div className="gear-section">
+              <div className="gear-category">
+                <h4>📷 Camera</h4>
+                <p className="gear-item">{photographer.gear.camera}</p>
               </div>
-              <div className="gear-item">
-                <strong>Lenses:</strong>
+              
+              <div className="gear-category">
+                <h4>🔍 Lenses</h4>
                 <ul className="gear-list">
                   {photographer.gear.lenses.map((lens, index) => (
-                    <li key={index}>{lens}</li>
+                    <li key={index} className="gear-item">{lens}</li>
                   ))}
                 </ul>
               </div>
+              
               {photographer.gear.other && photographer.gear.other.length > 0 && (
-                <div className="gear-item">
-                  <strong>Other Equipment:</strong>
+                <div className="gear-category">
+                  <h4>⚡ Additional Equipment</h4>
                   <ul className="gear-list">
                     {photographer.gear.other.map((item, index) => (
-                      <li key={index}>{item}</li>
+                      <li key={index} className="gear-item">{item}</li>
                     ))}
                   </ul>
                 </div>
@@ -99,62 +151,40 @@ const ExpandedProfile: React.FC<ExpandedProfileProps> = ({
             </div>
           </section>
 
-          {/* Portfolio */}
+          {/* Experience Section */}
           <section className="profile-section">
-            <h3>Portfolio</h3>
-            <div className="portfolio-grid">
-              {photographer.portfolio.map((image, index) => (
-                <div key={index} className="portfolio-item">
-                  <img src={image} alt={`Portfolio ${index + 1}`} />
+            <h3>Experience</h3>
+            <div className="experience-info">
+              <div className="experience-item">
+                <span className="experience-label">Years Active:</span>
+                <span className="experience-value">{photographer.experience}</span>
+              </div>
+              <div className="experience-item">
+                <span className="experience-label">Price Range:</span>
+                <span className="experience-value">{photographer.priceRange}</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Reviews Section */}
+          <section className="profile-section">
+            <h3>Reviews ({reviews.length})</h3>
+            <div className="reviews-list">
+              {reviews.slice(0, 3).map((review) => (
+                <div key={review.id} className="review-item">
+                  <div className="review-header">
+                    <span className="reviewer-name">{review.reviewerName}</span>
+                    <StarRating rating={review.rating} size="small" />
+                  </div>
+                  <p className="review-comment">{review.comment}</p>
+                  <div className="review-date">{new Date(review.date).toLocaleDateString()}</div>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Contact Info */}
-          {photographer.contactInfo && (
-            <section className="profile-section">
-              <h3>Contact</h3>
-              <div className="contact-info">
-                {photographer.contactInfo.email && (
-                  <div className="contact-item">
-                    <span className="contact-icon">📧</span>
-                    <a href={`mailto:${photographer.contactInfo.email}`}>
-                      {photographer.contactInfo.email}
-                    </a>
-                  </div>
-                )}
-                {photographer.contactInfo.instagram && (
-                  <div className="contact-item">
-                    <span className="contact-icon">📸</span>
-                    <a href={`https://instagram.com/${photographer.contactInfo.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer">
-                      {photographer.contactInfo.instagram}
-                    </a>
-                  </div>
-                )}
-                {photographer.contactInfo.website && (
-                  <div className="contact-item">
-                    <span className="contact-icon">🌐</span>
-                    <a href={`https://${photographer.contactInfo.website}`} target="_blank" rel="noopener noreferrer">
-                      {photographer.contactInfo.website}
-                    </a>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* Action buttons */}
-          <div className="profile-actions">
-            <button className="action-button reject-button">
-              <span>✗</span>
-              Pass
-            </button>
-            <button className="action-button like-button">
-              <span>✓</span>
-              Connect
-            </button>
-          </div>
+          {/* Review Form */}
+          <ReviewForm onSubmitReview={handleSubmitReview} />
         </div>
       </div>
     </div>

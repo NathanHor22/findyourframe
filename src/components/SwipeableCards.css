@@ -2,16 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
-  padding: 20px;
+  padding: 60px 20px 20px;
   position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .cards-stack {
   position: relative;
-  width: 320px;
-  height: 500px;
+  width: 416px; /* 320px * 1.3 for desktop */
+  height: 650px; /* 500px * 1.3 for desktop */
   margin-bottom: 40px;
 }
 
@@ -29,6 +30,118 @@
 
 .card-wrapper.swiping-right .photographer-card {
   transform: rotate(5deg);
+}
+
+/* Photographer Card Styles */
+.photographer-card {
+  width: 416px; /* 320px * 1.3 for desktop */
+  height: 650px; /* 500px * 1.3 for desktop */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  transition: box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.photographer-card:active {
+  cursor: grabbing;
+}
+
+.photographer-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+  position: relative;
+  width: 100%;
+  height: 70%;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.category-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+  padding: 20px 24px;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.photographer-name {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+  line-height: 1.2;
+}
+
+.photographer-bio {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #7f8c8d;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
+
+.card-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #95a5a6;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.card-location span {
+  font-size: 12px;
+}
+
+.more-details-btn {
+  width: 100%;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.more-details-btn:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 /* Action Buttons */
@@ -113,12 +226,41 @@
 /* Responsive design */
 @media (max-width: 480px) {
   .cards-container {
-    padding: 10px;
+    padding: 40px 10px 10px;
+    overflow-x: hidden; /* Ensure no horizontal scroll on mobile */
   }
   
   .cards-stack {
-    width: 280px;
-    height: 450px;
+    width: 308px; /* 280px * 1.1 for mobile */
+    height: 495px; /* 450px * 1.1 for mobile */
+  }
+  
+  .photographer-card {
+    width: 308px; /* 280px * 1.1 for mobile */
+    height: 495px; /* 450px * 1.1 for mobile */
+  }
+  
+  .card-content {
+    padding: 16px 20px;
+  }
+  
+  .photographer-name {
+    font-size: 20px;
+  }
+  
+  .photographer-bio {
+    font-size: 13px;
+  }
+  
+  .card-location {
+    font-size: 13px;
+  }
+  
+  .category-badge {
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    font-size: 11px;
   }
   
   .action-buttons {

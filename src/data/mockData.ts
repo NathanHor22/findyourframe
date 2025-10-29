@@ -22,8 +22,32 @@ export const mockPhotographers: Photographer[] = [
     ],
     experience: "8+ years",
     priceRange: "$200-500/hour",
+    rating: 4.8,
+    totalReviews: 47,
+    reviews: [
+      {
+        id: 1,
+        reviewerName: "Sarah M.",
+        rating: 5,
+        comment: "Alex captured our championship game perfectly! The action shots are incredible and really show the intensity of the moment.",
+        date: "2024-10-15"
+      },
+      {
+        id: 2,
+        reviewerName: "Mike T.",
+        rating: 5,
+        comment: "Professional, punctual, and delivered amazing photos. Great eye for capturing the perfect sports moments.",
+        date: "2024-10-08"
+      },
+      {
+        id: 3,
+        reviewerName: "Jennifer L.",
+        rating: 4,
+        comment: "Excellent work during our soccer tournament. Very happy with the quality and quick turnaround time.",
+        date: "2024-09-28"
+      }
+    ],
     contactInfo: {
-      email: "alex@sportsshots.com",
       instagram: "@alexsportsphoto",
       website: "www.alexrodriguezphoto.com"
     }
@@ -49,8 +73,32 @@ export const mockPhotographers: Photographer[] = [
     ],
     experience: "12+ years",
     priceRange: "$300-800/day",
+    rating: 4.9,
+    totalReviews: 32,
+    reviews: [
+      {
+        id: 1,
+        reviewerName: "David K.",
+        rating: 5,
+        comment: "Sarah's patience and expertise in wildlife photography is unmatched. She got shots of bears that I never thought possible!",
+        date: "2024-10-12"
+      },
+      {
+        id: 2,
+        reviewerName: "Emma R.",
+        rating: 5,
+        comment: "Incredible work on our nature documentary. Her knowledge of animal behavior really shows in her photographs.",
+        date: "2024-09-30"
+      },
+      {
+        id: 3,
+        reviewerName: "Tom H.",
+        rating: 4,
+        comment: "Great wildlife shots for our conservation project. Very professional and knows the best spots in Yellowstone.",
+        date: "2024-09-15"
+      }
+    ],
     contactInfo: {
-      email: "sarah@wildlifecaptures.com",
       instagram: "@sarahwildlife",
       website: "www.wildlifebysarah.com"
     }
@@ -76,8 +124,32 @@ export const mockPhotographers: Photographer[] = [
     ],
     experience: "6+ years",
     priceRange: "$150-350/hour",
+    rating: 4.6,
+    totalReviews: 28,
+    reviews: [
+      {
+        id: 1,
+        reviewerName: "Lisa P.",
+        rating: 5,
+        comment: "Marcus has an amazing eye for street photography. He captured the essence of NYC beautifully for our project.",
+        date: "2024-10-20"
+      },
+      {
+        id: 2,
+        reviewerName: "James W.",
+        rating: 4,
+        comment: "Great candid shots and very unobtrusive. Perfect for capturing authentic street moments.",
+        date: "2024-10-05"
+      },
+      {
+        id: 3,
+        reviewerName: "Anna S.",
+        rating: 5,
+        comment: "Loved working with Marcus! His street photography style is exactly what we needed for our urban campaign.",
+        date: "2024-09-18"
+      }
+    ],
     contactInfo: {
-      email: "marcus@streetvibes.com",
       instagram: "@marcusstreet",
       website: "www.marcusthompsonphoto.com"
     }
@@ -103,8 +175,32 @@ export const mockPhotographers: Photographer[] = [
     ],
     experience: "5+ years",
     priceRange: "$250-600/event",
+    rating: 4.7,
+    totalReviews: 41,
+    reviews: [
+      {
+        id: 1,
+        reviewerName: "Carlos M.",
+        rating: 5,
+        comment: "Emily captured the energy of our music festival perfectly! The photos really show the crowd's excitement.",
+        date: "2024-10-18"
+      },
+      {
+        id: 2,
+        reviewerName: "Rachel D.",
+        rating: 4,
+        comment: "Great festival photography. She knows how to work in low light conditions and crowded spaces.",
+        date: "2024-10-02"
+      },
+      {
+        id: 3,
+        reviewerName: "Alex B.",
+        rating: 5,
+        comment: "Fantastic work at SXSW! Emily managed to get amazing shots even in the chaotic festival environment.",
+        date: "2024-09-22"
+      }
+    ],
     contactInfo: {
-      email: "emily@festivalshots.com",
       instagram: "@emilyfestival",
       website: "www.emilyfosterphoto.com"
     }
@@ -130,8 +226,32 @@ export const mockPhotographers: Photographer[] = [
     ],
     experience: "10+ years",
     priceRange: "$300-750/session",
+    rating: 4.9,
+    totalReviews: 53,
+    reviews: [
+      {
+        id: 1,
+        reviewerName: "Michelle C.",
+        rating: 5,
+        comment: "David made me feel so comfortable during the shoot. The portraits came out absolutely stunning!",
+        date: "2024-10-22"
+      },
+      {
+        id: 2,
+        reviewerName: "Robert J.",
+        rating: 5,
+        comment: "Professional headshots for our company turned out perfect. David really knows how to capture personality.",
+        date: "2024-10-10"
+      },
+      {
+        id: 3,
+        reviewerName: "Sophie L.",
+        rating: 4,
+        comment: "Beautiful family portraits. David was patient with our kids and got some wonderful natural shots.",
+        date: "2024-09-25"
+      }
+    ],
     contactInfo: {
-      email: "david@portraitpro.com",
       instagram: "@davidkimportrait",
       website: "www.davidkimphoto.com"
     }
@@ -157,8 +277,32 @@ export const mockPhotographers: Photographer[] = [
     ],
     experience: "7+ years",
     priceRange: "$400-900/day",
+    rating: 4.8,
+    totalReviews: 36,
+    reviews: [
+      {
+        id: 1,
+        reviewerName: "Mark R.",
+        rating: 5,
+        comment: "Luna's landscape photography is breathtaking! She captured the Rocky Mountains beautifully for our calendar project.",
+        date: "2024-10-16"
+      },
+      {
+        id: 2,
+        reviewerName: "Catherine N.",
+        rating: 5,
+        comment: "Amazing work on our national park documentation. Luna knows the best times and locations for stunning shots.",
+        date: "2024-09-28"
+      },
+      {
+        id: 3,
+        reviewerName: "Brian K.",
+        rating: 4,
+        comment: "Great landscape shots for our tourism campaign. Professional and very knowledgeable about Colorado's best spots.",
+        date: "2024-09-12"
+      }
+    ],
     contactInfo: {
-      email: "luna@landscapes.com",
       instagram: "@lunalandscapes",
       website: "www.lunamartinezphoto.com"
     }

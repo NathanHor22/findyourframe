@@ -1,26 +1,23 @@
 import { useState } from 'react'
-import SwipeableCards from './components/SwipeableCards'
 import { mockPhotographers } from './data/mockData'
 import { Photographer } from './types/Photographer'
+import SwipeableCardsSimple from './components/SwipeableCardsSimple'
 import './App.css'
 
 function App() {
   const [likedPhotographers, setLikedPhotographers] = useState<Photographer[]>([])
-  const [rejectedPhotographers, setRejectedPhotographers] = useState<Photographer[]>([])
 
   const handleSwipe = (photographer: Photographer, direction: 'left' | 'right') => {
     if (direction === 'right') {
       setLikedPhotographers(prev => [...prev, photographer])
       console.log('Liked:', photographer.name)
     } else {
-      setRejectedPhotographers(prev => [...prev, photographer])
       console.log('Rejected:', photographer.name)
     }
   }
 
   const handleEndOfDeck = () => {
     console.log('End of deck reached!')
-    console.log('Liked photographers:', likedPhotographers)
   }
 
   return (
@@ -31,7 +28,7 @@ function App() {
       </header>
       
       <main className="app-main">
-        <SwipeableCards
+        <SwipeableCardsSimple
           photographers={mockPhotographers}
           onSwipe={handleSwipe}
           onEndOfDeck={handleEndOfDeck}
