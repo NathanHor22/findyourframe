@@ -1,0 +1,133 @@
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+.cards-stack {
+  position: relative;
+  width: 320px;
+  height: 500px;
+  margin-bottom: 40px;
+}
+
+.card-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center center;
+}
+
+.card-wrapper.swiping-left .photographer-card {
+  transform: rotate(-5deg);
+}
+
+.card-wrapper.swiping-right .photographer-card {
+  transform: rotate(5deg);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.reject-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+}
+
+.reject-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff5252, #ff1744);
+}
+
+.like-btn {
+  background: linear-gradient(135deg, #4ecdc4, #26a69a);
+  color: white;
+}
+
+.like-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #26a69a, #00695c);
+}
+
+/* End of deck */
+.end-of-deck {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+.end-of-deck h2 {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+  font-size: 28px;
+}
+
+.end-of-deck p {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .cards-container {
+    padding: 10px;
+  }
+  
+  .cards-stack {
+    width: 280px;
+    height: 450px;
+  }
+  
+  .action-buttons {
+    gap: 30px;
+  }
+  
+  .action-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
