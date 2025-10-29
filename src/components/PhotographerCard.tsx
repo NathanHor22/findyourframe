@@ -5,14 +5,12 @@ import './PhotographerCard.css';
 interface PhotographerCardProps {
   photographer: Photographer;
   style?: React.CSSProperties;
-  onSwipe?: (direction: 'left' | 'right') => void;
   isDragging?: boolean;
 }
 
 const PhotographerCard: React.FC<PhotographerCardProps> = ({
   photographer,
   style,
-  onSwipe,
   isDragging = false
 }) => {
   const getCategoryColor = (category: string) => {
@@ -45,6 +43,11 @@ const PhotographerCard: React.FC<PhotographerCardProps> = ({
         <div className="category-badge" style={{ backgroundColor: getCategoryColor(photographer.category) }}>
           {formatCategory(photographer.category)}
         </div>
+        
+        {/* Click indicator */}
+        <div className="click-indicator">
+          <span>👆 Tap for details</span>
+        </div>
       </div>
       
       <div className="card-content">
@@ -52,6 +55,10 @@ const PhotographerCard: React.FC<PhotographerCardProps> = ({
         {photographer.bio && (
           <p className="photographer-bio">{photographer.bio}</p>
         )}
+        <div className="card-location">
+          <span className="location-icon">📍</span>
+          {photographer.location}
+        </div>
       </div>
 
       {/* Swipe indicators */}

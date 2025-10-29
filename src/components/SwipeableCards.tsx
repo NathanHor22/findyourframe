@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PhotographerCard from './PhotographerCard';
+import ExpandedProfile from './ExpandedProfile';
 import { Photographer } from '../types/Photographer';
 import './SwipeableCards.css';
 
@@ -15,6 +16,7 @@ const SwipeableCards: React.FC<SwipeableCardsProps> = ({
   onEndOfDeck
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [expandedProfile, setExpandedProfile] = useState<Photographer | null>(null);
   const [dragData, setDragData] = useState({
     isDragging: false,
     startX: 0,
@@ -40,6 +42,10 @@ const SwipeableCards: React.FC<SwipeableCardsProps> = ({
     });
   };
 
+  const handleCloseProfile = () => {
+    setExpandedProfile(null);
+  };
+
   const handleMouseMove = (e: MouseEvent) => {
     if (!dragData.isDragging) return;
 
@@ -54,9 +60,15 @@ const SwipeableCards: React.FC<SwipeableCardsProps> = ({
     if (!dragData.isDragging) return;
 
     const deltaX = dragData.currentX - dragData.startX;
+    const deltaY = dragData.currentY - dragData.startY;
     const threshold = 100; // Minimum distance to trigger swipe
+    const dragDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-    if (Math.abs(deltaX) > threshold) {
+    // If drag distance is small, treat as click
+    if (dragDistance < 10) {
+      const currentPhotographer = photographers[currentIndex];
+      setExpandedProfile(currentPhotographer);
+    } else if (Math.abs(deltaX) > threshold) {
       const direction = deltaX > 0 ? 'right' : 'left';
       handleSwipe(direction);
     }
@@ -124,7 +136,29 @@ const SwipeableCards: React.FC<SwipeableCardsProps> = ({
   };
 
   const handleTouchEnd = () => {
-    handleMouseUp();
+    if (!dragData.isDragging) return;
+
+    const deltaX = dragData.currentX - dragData.startX;
+    const deltaY = dragData.currentY - dragData.startY;
+    const threshold = 100; // Minimum distance to trigger swipe
+    const dragDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    // If drag distance is small, treat as tap
+    if (dragDistance < 10) {
+      const currentPhotographer = photographers[currentIndex];
+      setExpandedProfile(currentPhotographer);
+    } else if (Math.abs(deltaX) > threshold) {
+      const direction = deltaX > 0 ? 'right' : 'left';
+      handleSwipe(direction);
+    }
+
+    setDragData({
+      isDragging: false,
+      startX: 0,
+      startY: 0,
+      currentX: 0,
+      currentY: 0,
+    });
   };
 
   const getCardStyle = (index: number): React.CSSProperties => {
@@ -209,6 +243,13 @@ const SwipeableCards: React.FC<SwipeableCardsProps> = ({
           ✓
         </button>
       </div>
+
+      {/* Expanded Profile Modal */}
+      <ExpandedProfile
+        photographer={expandedProfile!}
+        isOpen={expandedProfile !== null}
+        onClose={handleCloseProfile}
+      />
     </div>
   );
 };
